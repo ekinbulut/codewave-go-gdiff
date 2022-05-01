@@ -54,6 +54,11 @@ func (a *App) Run() {
 
 }
 
+// print help
+func printHelp() {
+	fmt.Println("go-http-crawler -u=https://sample.com -o=output.html")
+}
+
 // print App info
 func (a *App) printAppInfo() {
 	fmt.Printf("%s %s\n", a.Name, a.Version)
@@ -88,8 +93,8 @@ func main() {
 
 // parse flags
 func parseFlags() {
-	flag.StringVar(&site, "c", "", "site")
-	flag.StringVar(&outputFile, "o", "", "outputFile")
+	flag.StringVar(&site, "u", "", "u=https://sample.com")
+	flag.StringVar(&outputFile, "o", "", "o=output.html")
 
 	flag.Parse()
 }
