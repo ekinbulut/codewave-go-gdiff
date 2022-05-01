@@ -1,74 +1,95 @@
 package main
 
 import (
-	"bufio"
-
 	"fmt"
 
-	"io/ioutil"
-	"net/http"
-	"os"
+	"flag"
+
+	service "github.com/ekinbulut/go-http-crawler/app/srv"
 )
 
-type Crawler struct {
-	
+// flag -c=https://lego.storeturkey.com.tr/technic?ps=4
+// flag -c=https://lego.storeturkey.com.tr/technic?ps=4 -o=.\lego.html
+
+var site string
+var outputFile string
+
+type App struct {
+	Name    string
+	Version string
 }
 
-func (c *Crawler) Crawl(url string) (string, error) {
+func NewApp() *App {
+	return &App{
+		Name:    "go-http-crawler",
+		Version: "1.0.0",
+	}
+}
 
-	var response string
-	resp, err := http.Get(url)
+func (a *App) Run() {
+
+	a.printAppInfo()
+	parseFlags()
+	// print flags
+	fmt.Println("site:", site)
+	fmt.Println("outputFile:", outputFile)
+
+	// print progress
+	fmt.Println("crawling...")
+
+	resp, err := crawlsite(site)
 	if err != nil {
-		return response, err
+		fmt.Println(err)
 	}
 
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	// print progress
+	fmt.Println("creating output...")
+
+	err = createOutput(resp)
 	if err != nil {
-		return response, err
+		fmt.Println(err)
 	}
-	response = string(body)
-	return response, nil
+	// print progress
+	fmt.Println("done")
+
 }
 
-type FileWriter struct {
-	fileName string
-	file     *os.File
+// print App info
+func (a *App) printAppInfo() {
+	fmt.Printf("%s %s\n", a.Name, a.Version)
 }
 
-// write string to file
-func (f *FileWriter) Write(s string) error {
+func crawlsite(site string) (string, error) {
 
-	f.file, _ = os.Create(f.fileName)
-	defer f.file.Close()
-	writer := bufio.NewWriter(f.file)
-	_, err := writer.WriteString(s)
+	c := service.NewCrawler(site)
+	resp, err := c.Crawl()
 	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	return resp, nil
+}
+
+func createOutput(resp string) error {
+	f := service.NewFileWriter(outputFile)
+	err := f.Write(resp)
+	if err != nil {
+		fmt.Println(err)
 		return err
 	}
-	writer.Flush()
-
 	return nil
 }
 
 func main() {
+	app := NewApp()
+	app.Run()
 
-	c := &Crawler{}
-	resp, err := c.Crawl("https://site.com")
-	if err != nil {
-		panic(err)
-	}
+}
 
-	// get href attribute
+// parse flags
+func parseFlags() {
+	flag.StringVar(&site, "c", "", "site")
+	flag.StringVar(&outputFile, "o", "", "outputFile")
 
-	fileWriter := &FileWriter{
-		fileName: ".\\site.html",
-		file:     &os.File{},
-	}
-
-	err = fileWriter.Write(resp)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(resp)
+	flag.Parse()
 }
