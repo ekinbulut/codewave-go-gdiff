@@ -1,6 +1,8 @@
 package srv
 
-import "github.com/sergi/go-diff/diffmatchpatch"
+import (
+	"github.com/sergi/go-diff/diffmatchpatch"
+)
 
 type DiffChecker struct {
 	diffmatchpatch *diffmatchpatch.DiffMatchPatch

@@ -2,6 +2,7 @@ package srv
 
 import (
 	"bufio"
+	"io/ioutil"
 	"os"
 )
 
@@ -60,11 +61,11 @@ func (f *FileWriter) Read() (string, error) {
 	defer file.Close()
 
 	reader := bufio.NewReader(file)
-	content, err := reader.ReadString('\n')
+	content, err := ioutil.ReadAll(reader)
 	if err != nil {
 		return "", err
 	}
-	return content, nil
+	return string(content), nil
 }
 
 // chech if file exists

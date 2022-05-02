@@ -71,6 +71,7 @@ func (app *App) execute() {
 		if err != nil {
 			fmt.Println(err)
 		}
+
 		// check diff
 		b, err := app.diffChecker.Check(old, resp)
 		if err != nil {
@@ -85,6 +86,7 @@ func (app *App) execute() {
 			if err != nil {
 				fmt.Println(err)
 			}
+
 			//fmt.Println(html)
 			err = app.createOutput(resp)
 			if err != nil {
