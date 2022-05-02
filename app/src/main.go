@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"flag"
 
@@ -13,6 +14,7 @@ import (
 
 var site string
 var outputFile string
+var interval int
 
 type App struct {
 	Name    string
@@ -34,6 +36,20 @@ func (a *App) Run() {
 	fmt.Println("site:", site)
 	fmt.Println("outputFile:", outputFile)
 
+	// execute in given interval
+	if interval > 0 {
+		for {
+			execute()
+			fmt.Println("sleeping...")
+			time.Sleep(time.Duration(interval) * time.Second)
+		}
+	} else {
+		execute()
+	}
+
+}
+
+func execute() {
 	// print progress
 	fmt.Println("crawling...")
 
@@ -41,7 +57,6 @@ func (a *App) Run() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
 	// print progress
 	fmt.Println("creating output...")
 
@@ -51,7 +66,6 @@ func (a *App) Run() {
 	}
 	// print progress
 	fmt.Println("done")
-
 }
 
 // print help
@@ -94,7 +108,9 @@ func main() {
 // parse flags
 func parseFlags() {
 	flag.StringVar(&site, "u", "", "u=https://sample.com")
+	flag.StringVar(&site, "url", "", "url=https://sample.com")
 	flag.StringVar(&outputFile, "o", "", "o=output.html")
+	flag.IntVar(&interval, "i", 0, "i=1")
 
 	flag.Parse()
 }
