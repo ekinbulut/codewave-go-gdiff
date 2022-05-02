@@ -8,7 +8,7 @@ type Notification struct {
 func NewNotification(message string, smtpServer *SmtpServer) *Notification {
 	return &Notification{
 		Message:    message,
-		SmtpServer: NewSmtpServer("smtp.google.com", 465, "", ""),
+		SmtpServer: NewSmtpServer("smtp.google.com", "465", "", ""),
 	}
 }
 
