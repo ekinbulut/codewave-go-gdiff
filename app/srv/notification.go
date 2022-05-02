@@ -1,16 +1,14 @@
 package srv
 
-import "fmt"
-
 type Notification struct {
-	Message string
+	Message    string
 	SmtpServer *SmtpServer
 }
 
 func NewNotification(message string, smtpServer *SmtpServer) *Notification {
 	return &Notification{
-		Message: message,
-		SmtpServer: smtpServer,
+		Message:    message,
+		SmtpServer: NewSmtpServer("smtp.google.com", 465, "", ""),
 	}
 }
 
