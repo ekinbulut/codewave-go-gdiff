@@ -37,7 +37,7 @@ func NewApp() *App {
 func (a *App) Run() {
 
 	a.printAppInfo()
-	parseFlags()
+
 	// print flags
 	fmt.Println("site:", site)
 	fmt.Println("outputFile:", outputFile)
@@ -80,7 +80,13 @@ func (app *App) execute() {
 			fmt.Println("no changes")
 		} else {
 			fmt.Println("changes found")
-			err := app.createOutput(resp)
+			// print diffs
+			_, err := app.diffChecker.PrintDiffsToHtml(old, resp)
+			if err != nil {
+				fmt.Println(err)
+			}
+			//fmt.Println(html)
+			err = app.createOutput(resp)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -129,6 +135,7 @@ func (app *App) createOutput(resp string) error {
 }
 
 func main() {
+	parseFlags()
 	app := NewApp()
 	app.Run()
 
