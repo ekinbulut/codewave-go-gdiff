@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"flag"
@@ -15,6 +16,7 @@ import (
 var site string
 var outputFile string
 var interval int
+var keyword string
 
 type App struct {
 	Name        string
@@ -72,6 +74,16 @@ func (app *App) execute() {
 			fmt.Println(err)
 		}
 
+		
+		// search for keywords in string
+		e := checkKeyword(old, keyword)
+		if e {
+			fmt.Println("keyword found")
+			return
+		} else {
+			fmt.Println("keyword not found")
+		}
+
 		// check diff
 		b, err := app.diffChecker.Check(old, resp)
 		if err != nil {
@@ -103,6 +115,11 @@ func (app *App) execute() {
 	// print progress
 	fmt.Println("done")
 
+}
+
+// check keyword
+func checkKeyword(old string, new string) bool {
+	return strings.Contains(old, keyword)
 }
 
 // print App info
@@ -147,8 +164,9 @@ func main() {
 func parseFlags() {
 	flag.StringVar(&site, "u", "", "u=https://sample.com")
 	flag.StringVar(&site, "url", "", "url=https://sample.com")
-	flag.StringVar(&outputFile, "o", "", "o=output.html")
-	flag.IntVar(&interval, "i", 0, "i=1")
+	flag.StringVar(&outputFile, "o", "output.html", "o=output.html")
+	flag.StringVar(&keyword, "w", "", "w=keyword")
+	flag.IntVar(&interval, "i", 5, "i=1")
 
 	flag.Parse()
 }
