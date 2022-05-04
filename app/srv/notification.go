@@ -5,14 +5,14 @@ type Notification struct {
 	SmtpServer *SmtpServer
 }
 
-func NewNotification(message string, smtpServer *SmtpServer) *Notification {
+func NewNotification(message string) *Notification {
 	return &Notification{
 		Message:    message,
-		SmtpServer: NewSmtpServer("smtp.google.com", "465", "", ""),
+		SmtpServer: NewSmtpServer("smtp.gmail.com", "587", "", ""),
 	}
 }
 
 // send email
 func (n *Notification) SendEmail() {
-	n.SmtpServer.SendEmail("", "", "", n.Message)
+	n.SmtpServer.SendEmail("ekinbulut@gmail.com", "ekinbulut@gmail.com", "Notification Email From Listener", n.Message)
 }

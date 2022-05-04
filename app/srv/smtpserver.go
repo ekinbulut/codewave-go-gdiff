@@ -18,10 +18,16 @@ func NewSmtpServer(host string, port string, user string, pass string) *SmtpServ
 	}
 }
 
+// return address
+func (s *SmtpServer) GetAddress() string {
+	return s.Host + ":" + s.Port
+}
+
 // send email
 func (s *SmtpServer) SendEmail(from string, to string, subject string, body string) error {
 
-	err := smtp.SendMail(s.Host+":"+s.Port, nil, from, []string{to}, []byte(body))
+	auth := smtp.PlainAuth("", s.User, s.Pass, s.Host)
+	err := smtp.SendMail(s.GetAddress(), auth, from, []string{to}, []byte(body))
 	if err != nil {
 		return err
 	}

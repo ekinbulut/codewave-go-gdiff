@@ -74,15 +74,16 @@ func (app *App) execute() {
 			fmt.Println(err)
 		}
 
-		
 		// search for keywords in string
-		e := checkKeyword(old, keyword)
-		if e {
-			fmt.Println("keyword found")
-			return
-		} else {
-			fmt.Println("keyword not found")
-		}
+		// e := checkKeyword(old, keyword)
+		// if e {
+		// 	fmt.Println("keyword found")
+		// 	return
+		// } else {
+		// 	fmt.Println("keyword not found")
+		// 	n := service.NewNotification("Value has changed")
+		// 	n.SendEmail()
+		// }
 
 		// check diff
 		b, err := app.diffChecker.Check(old, resp)
@@ -94,7 +95,7 @@ func (app *App) execute() {
 		} else {
 			fmt.Println("changes found")
 			// print diffs
-			_, err := app.diffChecker.PrintDiffsToHtml(old, resp)
+			html, err := app.diffChecker.PrintDiffsToHtml(old, resp)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -104,6 +105,9 @@ func (app *App) execute() {
 			if err != nil {
 				fmt.Println(err)
 			}
+
+			n := service.NewNotification(html)
+			n.SendEmail()
 		}
 	} else {
 		err := app.createOutput(resp)
@@ -162,11 +166,11 @@ func main() {
 
 // parse flags
 func parseFlags() {
-	flag.StringVar(&site, "u", "", "u=https://sample.com")
-	flag.StringVar(&site, "url", "", "url=https://sample.com")
+	flag.StringVar(&site, "u", "https://lego.storeturkey.com.tr/10300-lego-icons-gelecege-donus-zaman-makinesi", "u=https://sample.com")
+	flag.StringVar(&site, "url", "https://lego.storeturkey.com.tr/10300-lego-icons-gelecege-donus-zaman-makinesi", "url=https://sample.com")
 	flag.StringVar(&outputFile, "o", "output.html", "o=output.html")
 	flag.StringVar(&keyword, "w", "", "w=keyword")
-	flag.IntVar(&interval, "i", 5, "i=1")
+	flag.IntVar(&interval, "i", 0, "i=1")
 
 	flag.Parse()
 }
