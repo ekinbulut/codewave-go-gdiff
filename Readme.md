@@ -1,11 +1,12 @@
 # Go-Http-Crawler
 
-Very simple crawler application to download any given http site.
+A simple crawler application to track any changes on a given website in a interval and sends email.
 
 ## Usage
 
 ```bash
-    go run main.go -url=http://www.google.com -output=output.html
+    #checks google.com each 5 seconds and writes the output to the file.
+    go run main.go -u "http://www.google.com" -o "output.html" -i 5
 ```
 
 
