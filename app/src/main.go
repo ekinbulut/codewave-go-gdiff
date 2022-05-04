@@ -106,8 +106,8 @@ func (app *App) execute() {
 				fmt.Println(err)
 			}
 
-			n := service.NewNotification(html)
-			n.SendEmail()
+			n := service.NewNotification()
+			n.SendEmail("", "", "", html)
 		}
 	} else {
 		err := app.createOutput(resp)

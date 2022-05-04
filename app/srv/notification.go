@@ -1,18 +1,16 @@
 package srv
 
 type Notification struct {
-	Message    string
 	SmtpServer *SmtpServer
 }
 
-func NewNotification(message string) *Notification {
+func NewNotification() *Notification {
 	return &Notification{
-		Message:    message,
 		SmtpServer: NewSmtpServer("smtp.gmail.com", "587", "", ""),
 	}
 }
 
 // send email
-func (n *Notification) SendEmail() {
-	n.SmtpServer.SendEmail("ekinbulut@gmail.com", "ekinbulut@gmail.com", "Notification Email From Listener", n.Message)
+func (n *Notification) SendEmail(from string, to string, subject string, body string) error {
+	return n.SmtpServer.SendEmail(from, to, subject, body)
 }
