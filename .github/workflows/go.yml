@@ -22,4 +22,7 @@ jobs:
       run: go build -v ./...
 
     - name: Test
+      env:
+        EMAIL: Ş{{ secrets.EMAIL }}
+        PASS: Ş{{ secrets.EMAIL_PASS }}
       run: go test -v ./...
