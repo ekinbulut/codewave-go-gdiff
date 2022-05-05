@@ -78,7 +78,6 @@ func (app *App) execute() {
 		//search for keywords in string
 		e := checkKeyword(old, keyword)
 		if e {
-			fmt.Println("keyword found")
 			return
 		} else {
 			fmt.Println("keyword not found")
@@ -172,7 +171,7 @@ func parseFlags() {
 	flag.StringVar(&outputFile, "o", "output.html", "o=output.html")
 	flag.StringVar(&keyword, "w", "", "w=keyword")
 	flag.IntVar(&interval, "i", 0, "i=1")
-	flag.StringVar(&username, "user", "", "u=username")
+	flag.StringVar(&username, "user", "", "user=username")
 
 	flag.Parse()
 }
