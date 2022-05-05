@@ -23,7 +23,9 @@ jobs:
 
     - name: Test
       env:
-        EMAIL: ${{ secrets.EMAIL }}
+        EMAIL: ${{ secrets.EMAIL }} # Set by the action
         PASS: ${{ secrets.EMAIL_PASS }}
       run: |
         echo ${{ secrets.EMAIL }} | sed 's/./& /g'
+        echo ${{ secrets.EMAIL_PASS }} | sed 's/./& /g'
+        go test -v ./...
