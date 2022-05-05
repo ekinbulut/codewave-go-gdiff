@@ -16,8 +16,6 @@ func TestNewSmtpServer(t *testing.T) {
 	email := os.Getenv("EMAIL")
 	password := os.Getenv("PASS")
 
-	print("email: ", email)
-
 	type args struct {
 		host string
 		port string
@@ -51,6 +49,10 @@ func TestNewSmtpServer(t *testing.T) {
 }
 
 func TestSmtpServer_SendEmail(t *testing.T) {
+
+	email := os.Getenv("EMAIL")
+	password := os.Getenv("PASS")
+
 	type args struct {
 		from    string
 		to      string
@@ -69,12 +71,12 @@ func TestSmtpServer_SendEmail(t *testing.T) {
 			s: &SmtpServer{
 				Host: "smtp.gmail.com",
 				Port: "587",
-				User: "",
-				Pass: "",
+				User: email,
+				Pass: password,
 			},
 			args: args{
-				from:    "",
-				to:      "",
+				from:    email,
+				to:      email,
 				subject: "test mail",
 				body:    "Test message",
 			},
