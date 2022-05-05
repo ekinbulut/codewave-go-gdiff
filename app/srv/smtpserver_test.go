@@ -1,11 +1,23 @@
 package srv
 
 import (
+	"os"
 	"reflect"
 	"testing"
 )
 
+// read environmnet variables
+// go test -v -run TestNewSmtpServer -count=1
+// go test -v -run TestSmtpServer_SendEmail -count=1
+
 func TestNewSmtpServer(t *testing.T) {
+
+	// read environmnet variables
+	email := os.Getenv("EMAIL")
+	password := os.Getenv("EMAIL_PASS")
+
+	print("email: ", email)
+
 	type args struct {
 		host string
 		port string
@@ -20,12 +32,12 @@ func TestNewSmtpServer(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			name: "test",
-			args: args{host: "smtp.gmail.com", port: "587", user: "", pass: ""},
+			args: args{host: "smtp.gmail.com", port: "587", user: email, pass: password},
 			want: &SmtpServer{
 				Host: "smtp.gmail.com",
 				Port: "587",
-				User: "",
-				Pass: "",
+				User: email,    // environment variable
+				Pass: password, // environment variable
 			},
 		},
 	}
