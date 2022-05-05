@@ -23,6 +23,6 @@ jobs:
 
     - name: Test
       env:
-        EMAIL: Ş{{ secrets.EMAIL }}
-        PASS: Ş{{ secrets.EMAIL_PASS }}
+        EMAIL: ${{ secrets.EMAIL }}
+        PASS: ${{ secrets.EMAIL_PASS }}
       run: go test -v ./...
