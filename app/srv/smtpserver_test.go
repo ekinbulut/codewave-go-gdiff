@@ -14,7 +14,7 @@ func TestNewSmtpServer(t *testing.T) {
 
 	// read environmnet variables
 	email := os.Getenv("EMAIL")
-	password := os.Getenv("EMAIL_PASS")
+	password := os.Getenv("PASS")
 
 	print("email: ", email)
 
