@@ -17,6 +17,7 @@ var site string
 var outputFile string
 var interval int
 var keyword string
+var username string
 
 type App struct {
 	Name        string
@@ -74,16 +75,16 @@ func (app *App) execute() {
 			fmt.Println(err)
 		}
 
-		// search for keywords in string
-		// e := checkKeyword(old, keyword)
-		// if e {
-		// 	fmt.Println("keyword found")
-		// 	return
-		// } else {
-		// 	fmt.Println("keyword not found")
-		// 	n := service.NewNotification("Value has changed")
-		// 	n.SendEmail()
-		// }
+		//search for keywords in string
+		e := checkKeyword(old, keyword)
+		if e {
+			fmt.Println("keyword found")
+			return
+		} else {
+			fmt.Println("keyword not found")
+			n := service.NewNotification()
+			n.SendEmail(username, username, "Notificaton", "keyword not found")
+		}
 
 		// check diff
 		b, err := app.diffChecker.Check(old, resp)
@@ -107,7 +108,7 @@ func (app *App) execute() {
 			}
 
 			n := service.NewNotification()
-			n.SendEmail("", "", "", html)
+			n.SendEmail(username, username, "Notification", html)
 		}
 	} else {
 		err := app.createOutput(resp)
@@ -166,11 +167,12 @@ func main() {
 
 // parse flags
 func parseFlags() {
-	flag.StringVar(&site, "u", "https://lego.storeturkey.com.tr/10300-lego-icons-gelecege-donus-zaman-makinesi", "u=https://sample.com")
-	flag.StringVar(&site, "url", "https://lego.storeturkey.com.tr/10300-lego-icons-gelecege-donus-zaman-makinesi", "url=https://sample.com")
+	flag.StringVar(&site, "u", "", "u=https://sample.com")
+	flag.StringVar(&site, "url", "", "url=https://sample.com")
 	flag.StringVar(&outputFile, "o", "output.html", "o=output.html")
 	flag.StringVar(&keyword, "w", "", "w=keyword")
 	flag.IntVar(&interval, "i", 0, "i=1")
+	flag.StringVar(&username, "user", "", "u=username")
 
 	flag.Parse()
 }

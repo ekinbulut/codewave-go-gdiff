@@ -1,12 +1,17 @@
 package srv
 
+import "os"
+
 type Notification struct {
 	SmtpServer *SmtpServer
 }
 
 func NewNotification() *Notification {
+
+	u := os.Getenv("USERNAME")
+	p := os.Getenv("PASSWORD")
 	return &Notification{
-		SmtpServer: NewSmtpServer("smtp.gmail.com", "587", "", ""),
+		SmtpServer: NewSmtpServer("smtp.gmail.com", "587", u, p),
 	}
 }
 
