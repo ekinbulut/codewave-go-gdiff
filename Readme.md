@@ -1,5 +1,7 @@
 # Go-Http-Crawler
 
+[![Go](https://github.com/ekinbulut/go-http-crawler/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/ekinbulut/go-http-crawler/actions/workflows/go.yml)
+
 A simple crawler application to track any changes on a given website in a interval and sends email.
 
 ## Usage
