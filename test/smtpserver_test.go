@@ -43,7 +43,7 @@ func TestNewSmtpServer(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewSmtpServer(tt.args.host, tt.args.port, tt.args.user, tt.args.pass); !reflect.DeepEqual(got, tt.want) {
+			if got := service.NewSmtpServer(tt.args.host, tt.args.port, tt.args.user, tt.args.pass); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewSmtpServer() = %v, want %v", got, tt.want)
 			}
 		})
