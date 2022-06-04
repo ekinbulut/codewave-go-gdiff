@@ -79,8 +79,8 @@ func TestSmtpServer_SendEmail(t *testing.T) {
 			args: args{
 				from:    email,
 				to:      email,
-				subject: "test mail",
-				body:    "Test message",
+				subject: "go-http-crawler Unit Test Mail",
+				body:    "Test message from go-http-crawler smtp send mail func.",
 			},
 			wantErr: false,
 		},
