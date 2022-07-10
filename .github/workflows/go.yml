@@ -20,11 +20,11 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Build
-      run: go build -v ./...
-
     - name: Test
       env:
         EMAIL: ${{ secrets.EMAIL }} # Set by the action
         PASS: ${{ secrets.EMAIL_PASS }}
       run: go test -v ./...
+
+    - name: Build
+      run: go build -v ./...
