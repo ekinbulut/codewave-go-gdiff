@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	service "github.com/ekinbulut/go-http-crawler/internal"
+	service "github.com/ekinbulut/gdiff/internal"
 )
 
 type App struct {

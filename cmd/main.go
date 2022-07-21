@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	cli "github.com/ekinbulut/go-http-crawler/cmd/cli"
+	cli "github.com/ekinbulut/gdiff/cmd/cli"
 )
 
 // flag -c=https://lego.storeturkey.com.tr/technic?ps=4

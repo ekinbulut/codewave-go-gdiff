@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	service "github.com/ekinbulut/go-http-crawler/internal"
+	service "github.com/ekinbulut/gdiff/internal"
 )
 
 // read environmnet variables

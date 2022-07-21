@@ -1,4 +1,4 @@
-module github.com/ekinbulut/go-http-crawler
+module github.com/ekinbulut/gdiff
 
 go 1.17
 

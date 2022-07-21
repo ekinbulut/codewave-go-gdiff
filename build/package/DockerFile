@@ -11,6 +11,6 @@ COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -v -o /usr/local/bin/crawler ./...
+RUN go build -v -o /usr/local/bin/gdiff ./...
 
-CMD ["/usr/local/bin/crawler", "-url", "$url", "-u", "$username", "-i", "$interval", "-w", "$keyword"]
+CMD ["/usr/local/bin/gdiff", "-url", "$url", "-u", "$username", "-i", "$interval", "-w", "$keyword"]
