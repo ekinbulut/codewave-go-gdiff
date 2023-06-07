@@ -18,6 +18,6 @@ A simple crawler application to track any changes on a given website in a interv
 
 ## Contribution
 
-Master branch is the main line. To add feature create a new branch and open PR.
+Master branch is the main line. Fork, develop, open PR.
 
 
